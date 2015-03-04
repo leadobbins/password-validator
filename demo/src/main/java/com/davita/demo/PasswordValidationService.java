@@ -23,7 +23,13 @@ import org.apache.commons.lang3.StringUtils;
 public class PasswordValidationService {
 	
 	@Inject
-	private ValidatorUtils utils;
+	private ValidatorInterface validateLettersDigits;
+	
+	@Inject
+	private ValidatorInterface validateNumChars;
+	
+	@Inject
+	private ValidatorInterface validateRepeatingSequence;
 	
 	/**
 	 * Validates that the password meets the current rules.  Returns the
@@ -35,15 +41,15 @@ public class PasswordValidationService {
 	 */
 	public PasswordValidationResponse validatePassword(String password) {
 		PasswordValidationResponse response = new PasswordValidationResponse();
-		String numCharsResult = utils.validateNumCharacters(password);
+		String numCharsResult = validateNumChars.validate(password);
 		if (!StringUtils.isEmpty(numCharsResult)) {
 			response.addResponse(numCharsResult);
 		}
-		String lettersDigitsResult = utils.validateLettersDigits(password);
+		String lettersDigitsResult = validateLettersDigits.validate(password);
 		if (!StringUtils.isEmpty(lettersDigitsResult)) {
 			response.addResponse(lettersDigitsResult);
 		}
-		String repeatSeqResult = utils.validateRepeatingSequence(password);
+		String repeatSeqResult = validateRepeatingSequence.validate(password);
 		if (!StringUtils.isEmpty(repeatSeqResult)) {
 			response.addResponse(repeatSeqResult);
 		}

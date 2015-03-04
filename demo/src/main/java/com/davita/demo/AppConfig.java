@@ -21,8 +21,18 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 	
 	@Bean
-	public ValidatorUtils validatorUtils() {
-		return new ValidatorUtils();
+	public ValidatorInterface validateNumChars() {
+		return new ValidateNumCharsImpl();
+	}
+	
+	@Bean
+	public ValidatorInterface validateLettersDigits() {
+		return new ValidateLettersDigitsImpl();
+	}
+	
+	@Bean
+	public ValidatorInterface validateRepeatingSequence() {
+		return new ValidateRepeatingSequenceImpl();
 	}
 	
 	@Bean
